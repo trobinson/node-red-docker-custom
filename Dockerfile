@@ -1,4 +1,4 @@
-FROM nodered/node-red:3.0.2
+FROM nodered/node-red:3.1.7
 
 USER root
 
