@@ -59,6 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract Version
+        if: github.ref == 'refs/heads/main'
         run: |
           echo "DOCKERFILE_VERSION=$(grep FROM Dockerfile | awk -F ':' '{ print $2 }')" >> $GITHUB_OUTPUT
         id: version
