@@ -58,6 +58,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract Version
+        run: |
+          echo "DOCKERFILE_VERSION=$(grep FROM Dockerfile | awk -F ':' '{ print $2 }')" >> $GITHUB_OUTPUT
+        id: version
+
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
@@ -66,7 +71,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{version}}
+            type=raw,value={{steps.version.outputs.DOCKERFILE_VERSION}}
             type=schedule,pattern={{date 'YYYYMMDD'}}
             type=ref,event=branch
             type=ref,event=tag
