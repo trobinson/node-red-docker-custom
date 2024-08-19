@@ -71,7 +71,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value={{steps.version.outputs.DOCKERFILE_VERSION}}
+            type=raw,value={{steps.version.outputs.DOCKERFILE_VERSION}},priority=2000
             type=schedule,pattern={{date 'YYYYMMDD'}}
             type=ref,event=branch
             type=ref,event=tag
